@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
+import Recipe from './Recipe'
 
 const App = () => {
 
@@ -20,6 +21,7 @@ const App = () => {
   																												//we need to add await(line 18) every time we have
   																												//a promise.
   	const data = await response.json() //Formats in a way that we can work with the data.
+  	setRecipes(data.hits)
   	console.log(data.hits)
   }
 
@@ -31,6 +33,9 @@ const App = () => {
       		Search
       	</button>
       </form>
+      {recipes.map(recipe =>(
+      	<Recipe />
+      ))}
     </div>
   );
 }
