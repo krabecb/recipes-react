@@ -9,14 +9,16 @@ const App = () => {
   const APP_KEY = 'a3682fcc7c9c1dbbf3f353117ade4f36'
 
   const [recipes, setRecipes] = useState([])
+  const [search, setSearch] = useState('')
+  const [query, setQuery] = useState('chicken')
 
   useEffect(() => {
   	getRecipes()
-  }, []) //Second argument of useEffect. Empy array makes useEffect run once and not everytime we increment the counter. [counter]
+  }, [query]) //Second argument of useEffect. Empy array makes useEffect run once and not everytime we increment the counter. [counter]
   				//makes useEffect run everytime counter changes.
 
   const getRecipes = async () => {
-  	const response = await fetch(`https://api.edamam.com/search?q=chicken&app_id=${APP_ID}&app_key=${APP_KEY}`) //We're waiting and requesting from a external API
+  	const response = await fetch(`https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}`) //We're waiting and requesting from a external API
   																												//We don't know when this info will come back. So
   																												//we need to add await(line 18) every time we have
   																												//a promise.
@@ -25,10 +27,20 @@ const App = () => {
   	console.log(data.hits)
   }
 
+  const updateSearch = e => {
+  	setSearch(e.target.value)
+  }
+
+  const getSearch = e => {
+  	e.preventDefault()
+  	setQuery(search)
+  	setSearch('')
+  }
+
   return (
     <div className="App">
-      <form className="search-form">
-      	<input className="search-bar" type="text"/>
+      <form onSubmit={getSearch} className="search-form">
+      	<input className="search-bar" type="text" value={search} onChange={updateSearch}/>
       	<button className="search-button" type="submit">
       		Search
       	</button>
