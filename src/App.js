@@ -14,7 +14,7 @@ const App = () => {
 
   useEffect(() => {
   	getRecipes()
-  }, [query]) //Second argument of useEffect. Empy array makes useEffect run once and not everytime we increment the counter. [counter]
+  }, [query]) //Second argument of useEffect. Empty array makes useEffect run once and not everytime we increment the counter. [counter]
   				//makes useEffect run everytime counter changes.
 
   const getRecipes = async () => {
